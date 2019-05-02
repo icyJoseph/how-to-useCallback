@@ -47,7 +47,7 @@ export function Expensive({ total, totalCb }) {
 export default React.memo(Expensive);
 ```
 
-This so called Expensive component receives two props. Total and totalCb. The latter is called when the user clicks the calculate total button.
+This so called Expensive component receives two props, `total` and `totalCb`. The latter is called when the user clicks the calculate total button.
 
 Notice that we export Expensive wrapped by `React.memo`.
 
@@ -116,10 +116,10 @@ That's because:
 
 You notice, there's a `newInTheBeginning` prop. This is pointing to a function defined for the whole module, so it is the same function every tick of the timer.
 
-Unfourtunately, if we uncomment the next two props, `willBeNewEverytime` and `newEveryTime`, each tick, will make a new reference to these and hence trigger a render run, in spite of `React.memo` wrapping Expensive.
+Unfortunately, if we remove the comment from the last two props, `willBeNewEverytime` and `newEveryTime`, then each tick, will make a new reference to these and hence trigger a render run, in spite of `React.memo` wrapping Expensive.
 
 That's how useCallback helps us, it saves the reference to a function for further rendering operations. Since the reference is the same, children which consume it do not render again.
 
-A new reference is made only if the dependencies to the callback change. In this case, that would be `arrMemo`.
+A new reference is made only if the dependencies to the callback change. In this case, that would be `arrMemo`. Which in turn, changes when `count` is modified.
 
 Additionally we create a memoized value, by calling `useMemo` we can define a value derived from the `count` state, if we didn't `useMemo`, every tick would trigger a derivation!
