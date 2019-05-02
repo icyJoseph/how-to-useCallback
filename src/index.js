@@ -5,11 +5,8 @@ import Expensive from "./Expensive";
 
 import "./styles.css";
 
-// a few helpers
 // add up all elements of an array
 const totalCalc = arr => arr.reduce((prev, curr) => prev + curr, 0);
-// case all elements of an array to 1 and then add them up
-const lenCalc = arr => totalCalc(arr.map(() => 1));
 
 // make an array of length Math.abs(val)
 function makeArr(val) {
@@ -29,7 +26,6 @@ function App() {
   const [time, tickTime] = useState(0);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
-  const [len, setLen] = useState(0);
 
   // "ticks" to re-render the whole App
   useEffect(() => {
@@ -53,12 +49,6 @@ function App() {
     setTotal(totalCalc(arrMemo));
   }, [arrMemo]);
 
-  // same instance callback
-  const lengthCb = useCallback(() => {
-    console.log("inside callback lengthCb", arrMemo);
-    setLen(lenCalc(arrMemo));
-  }, [arrMemo]);
-
   // every tick triggers a new instance
   const newEveryTime = () => {
     console.log(
@@ -73,9 +63,7 @@ function App() {
       <Counter count={count} inc={inc} dec={dec} />
       <Expensive
         total={total}
-        length={len}
         totalCb={totalCb}
-        lengthCb={lengthCb}
         newInTheBeginning={alwaysTheSame}
         // willBeNewEverytime={curry(alwaysTheSame)}
         // newEveryTime={newEveryTime}

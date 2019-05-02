@@ -1,12 +1,11 @@
 import React from "react";
 
-export function Expensive({ total, length, totalCb, lengthCb }) {
+export function Expensive({ total, totalCb }) {
   const handleClick = () => {
     totalCb();
-    lengthCb();
   };
 
-  console.log("Expensive re-renders, with: ", total, length);
+  console.log("Expensive re-renders, with: ", total);
 
   return (
     <>
@@ -14,10 +13,7 @@ export function Expensive({ total, length, totalCb, lengthCb }) {
         <p>total: {total}</p>
       </div>
       <div>
-        <p>length: {length}</p>
-      </div>
-      <div>
-        <button onClick={handleClick}>Update</button>
+        <button onClick={handleClick}>Calc Total</button>
       </div>
     </>
   );
